@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 const roleConfig = {
   department: {
@@ -57,6 +58,7 @@ const roleConfig = {
 };
 
 export default function LoginPage() {
+  const router = useRouter();
   const [currentRole, setCurrentRole] = useState('department');
   const [showPassword, setShowPassword] = useState(false);
   const [userId, setUserId] = useState(roleConfig.department.userId);
@@ -105,6 +107,9 @@ export default function LoginPage() {
         `✓ Authentication Authorized: Opening ${config.dashboardName} for ${config.title} (${config.org})...`,
         'bg-emerald-50 text-emerald-800 border-emerald-200'
       );
+      if (currentRole === 'department') {
+        setTimeout(() => router.push('/department/dashboard'), 800);
+      }
     }, 700);
   };
 
